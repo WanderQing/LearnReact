@@ -1,0 +1,22 @@
+.operate-area{
+    display: flex;
+}
+.todo-item{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+    padding: 0.2em;
+}
+.list-area{
+    //height: 500px;
+    overflow: auto;
+}
+.icon{
+    cursor: pointer;
+}
+.input-item{
+
+}
+.button-add{
+    margin-left: 1em;
+}
