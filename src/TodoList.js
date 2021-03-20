@@ -15,6 +15,7 @@ class TodoList extends React.Component {
     this.inputItem = this.inputItem.bind(this);
     this.addItem = this.addItem.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
+    this.checkItem = this.checkItem.bind(this);
   }
 
   handleEnter(e) {
@@ -23,11 +24,25 @@ class TodoList extends React.Component {
     }
   }
 
+  checkItem(id, checked) {
+    const { list } = this.state;
+    const index = list.map((item) => item.id).indexOf(id);
+    if (index !== -1) {
+      this.setState((state) => ({
+        list: [
+          ...state.list.slice(0, index),
+          { ...(state.list[index]), checked },
+          ...state.list.slice(index + 1),
+        ],
+      }));
+    }
+  }
+
   addItem() {
     const { value } = this.state;
     if (value.trim() === '') return;
     this.setState((state) => ({
-      list: [...state.list, { id: IDGenerator.nextId(), text: value }],
+      list: [...state.list, { id: IDGenerator.nextId(), text: value, checked: false }],
     }));
     this.setState({ value: '' });
   }
@@ -65,6 +80,7 @@ class TodoList extends React.Component {
                   key={item.id}
                   item={item}
                   deleteItem={this.deleteItem}
+                  checkItem={this.checkItem}
                 />
               ))
               : <span>暂无数据</span>
